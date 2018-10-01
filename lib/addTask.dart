@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddTask extends StatefulWidget {
+  AddTask({this.email});
+  final String email;
   @override
   _AddTaskState createState() => _AddTaskState();
 }
@@ -30,9 +32,18 @@ class _AddTaskState extends State<AddTask> {
     }
   }
 
-void _addData(){
-
-}
+  void _addData(){
+    Firestore.instance.runTransaction((Transaction transaction) async{
+      CollectionReference reference = Firestore.instance.collection('task');
+      await reference.add({
+          "email" : widget.email,
+        "title": newTask,
+        "duedate": _dueDate,
+        "note": note,
+      });
+    });
+    Navigator.pop(context);
+  }
 
   @override
   void initState() {
