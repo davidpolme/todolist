@@ -1,23 +1,44 @@
-/*import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class  EditTask extends StatefulWidget {
-  EditTask({this.email});
+  EditTask({this.title, this.duedate, this.note, this.index});
 
-  final String email;
+  final String title;
+  final String note;
+  final DateTime duedate;
+  final index;
 
   @override
   _EditTaskState createState() => _EditTaskState();
 }
 
 class _EditTaskState extends State<EditTask> {
-  DateTime _dueDate = new DateTime.now();
+
+  TextEditingController controllerTitle;
+  TextEditingController controllerNote;
+
+  DateTime _dueDate;
   String _dateText = '';
 
-  String newTask = '';
-  String note = '';
+  String newTask ;
+  String note ;
+
+  void _editTask() {
+    Firestore.instance.runTransaction((Transaction transaction)async{
+      DocumentSnapshot snapshot =
+          await transaction.get(widget.index);
+          await transaction.update(snapshot.reference, {
+            "title" : newTask,
+            "note": note,
+            "duedate": _dueDate
+          });
+
+    });
+    Navigator.pop(context);
+  }
 
   Future<Null> _selectDueDate(BuildContext context) async {
     final picked = await showDatePicker(
@@ -40,7 +61,13 @@ class _EditTaskState extends State<EditTask> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _dueDate = widget.duedate;
     _dateText = "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
+
+    newTask = widget.title;
+    note = widget.note;
+    controllerTitle = new TextEditingController(text: widget.title);
+    controllerNote = new TextEditingController(text: widget.note);
   }
 
   @override
@@ -85,6 +112,7 @@ class _EditTaskState extends State<EditTask> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              controller: controllerTitle,
               onChanged: (String str) {
                 setState(() {
                   newTask = str;
@@ -123,6 +151,7 @@ class _EditTaskState extends State<EditTask> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              controller: controllerNote,
               onChanged: (String str) {
                 setState(() {
                   note = str;
@@ -146,7 +175,7 @@ class _EditTaskState extends State<EditTask> {
                       size: 40.0,
                     ),
                     onPressed: () {
-                     context
+                    _editTask();
                     }),
                 IconButton(
                     icon: Icon(
@@ -163,5 +192,6 @@ class _EditTaskState extends State<EditTask> {
       ),
     );
   }
+
+
 }
-*/

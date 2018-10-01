@@ -38,7 +38,7 @@ class _AddTaskState extends State<AddTask> {
       await reference.add({
           "email" : widget.email,
         "title": newTask,
-        "duedate": _dateText,
+        "duedate": _dueDate,
         "note": note,
       });
     });

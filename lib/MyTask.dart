@@ -216,7 +216,8 @@ class TaskList extends StatelessWidget {
       itemBuilder: (BuildContext contex, int i) {
         String title = document[i].data['title'].toString();
         String note = document[i].data['note'].toString();
-        String duedate = document[i].data['duedate'].toString();
+        DateTime _date = document[i].data['duedate'];
+        String duedate = "${_date.day}/ ${_date.month}/ ${_date.year}";
 
         return Padding(
           padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 8.0),
@@ -276,14 +277,19 @@ class TaskList extends StatelessWidget {
                   ),
                 ),
               ),
-            /* new IconButton(
+             new IconButton(
                   icon: Icon(Icons.edit, color: Colors.green),
                   onPressed: () {
                     Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext context)=> new EditTask())
+                        builder: (BuildContext context)=> new EditTask(
+                          title: title,
+                          note: note,
+                          duedate: document[i].data['duedate'],
+                          index: document[i].reference,
+                        ))
                     );
                   },
-                  )*/
+                  )
             ] ,
           ),
         );
