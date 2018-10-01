@@ -64,7 +64,7 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  //TODO: Cambiar font a pacifico
+  #TODO: Cambiar font a pacifico
   fonts:
     - family: Segoe
       fonts:
