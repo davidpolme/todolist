@@ -219,78 +219,91 @@ class TaskList extends StatelessWidget {
         DateTime _date = document[i].data['duedate'];
         String duedate = "${_date.day}/ ${_date.month}/ ${_date.year}";
 
-        return Padding(
-          padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Text(
-                          title,
-                          style:
-                              new TextStyle(fontSize: 20.0, letterSpacing: 1.0),
+        return Dismissible(
+          key: new Key(document[i].documentID),
+          onDismissed: (direction){
+            Firestore.instance.runTransaction((transaction) async{
+              DocumentSnapshot snapshot =
+                  await transaction.get(document[i].reference);
+                  await transaction.delete(snapshot.reference );
+            });
+            Scaffold.of(context).showSnackBar(
+              new SnackBar(content: new Text("Datos eliminados"),)
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            title,
+                            style:
+                                new TextStyle(fontSize: 20.0, letterSpacing: 1.0),
+                          ),
                         ),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: Icon(
-                              Icons.date_range,
-                              color: Colors.green,
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16.0),
+                              child: Icon(
+                                Icons.date_range,
+                                color: Colors.green,
+                              ),
                             ),
-                          ),
-                          Text(
-                            duedate,
-                            style: new TextStyle(
-                              fontSize: 18.0,
+                            Text(
+                              duedate,
+                              style: new TextStyle(
+                                fontSize: 18.0,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: Icon(
-                              Icons.note,
-                              color: Colors.green,
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16.0),
+                              child: Icon(
+                                Icons.note,
+                                color: Colors.green,
+                              ),
                             ),
-                          ),
-                          Expanded(
-                              child: Text(
-                            note,
-                            style: new TextStyle(
-                              fontSize: 18.0,
-                            ),
-                          )),
-                        ],
-                      ),
-                    ],
+                            Expanded(
+                                child: Text(
+                              note,
+                              style: new TextStyle(
+                                fontSize: 18.0,
+                              ),
+                            )),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-             new IconButton(
-                  icon: Icon(Icons.edit, color: Colors.green),
-                  onPressed: () {
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext context)=> new EditTask(
-                          title: title,
-                          note: note,
-                          duedate: document[i].data['duedate'],
-                          index: document[i].reference,
-                        ))
-                    );
-                  },
-                  )
-            ] ,
+               new IconButton(
+                    icon: Icon(Icons.edit, color: Colors.green),
+                    onPressed: () {
+                      Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (BuildContext context)=> new EditTask(
+                            title: title,
+                            note: note,
+                            duedate: document[i].data['duedate'],
+                            index: document[i].reference,
+                          ))
+                      );
+                    },
+                    )
+              ] ,
+            ),
           ),
         );
       },
