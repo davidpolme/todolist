@@ -62,7 +62,10 @@ class _AddTaskState extends State<AddTask> {
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image:  AssetImage("img/bgpattern.png"), fit: BoxFit.cover
+
+                  image:  AssetImage("img/bg.jpg"), fit: BoxFit.cover
+                //TODO: Poner imagen transparente
+                //image:  AssetImage("img/bgpattern.png"), fit: BoxFit.cover
               ),
                 color: Color.fromRGBO(3, 81, 57, 1.0),
             ),

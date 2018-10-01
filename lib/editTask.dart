@@ -80,7 +80,12 @@ class _EditTaskState extends State<EditTask> {
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("img/bgpattern.png"), fit: BoxFit.cover),
+
+                //TODO: poner imagen transparente
+                  image: AssetImage("img/bg.jpg"), fit: BoxFit.cover),
+
+              //image: AssetImage("img/bgpattern.png"), fit: BoxFit.cover),
+
               color: Color.fromRGBO(3, 81, 57, 1.0),
             ),
             child: Column(

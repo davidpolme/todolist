@@ -128,9 +128,10 @@ class _MyTaskState extends State<MyTask> {
             decoration: BoxDecoration(
                 image: DecorationImage(
 
-                    // TODO: poner imagen de fondo
+                    // TODO: poner imagen transparente
 
-                    image: new AssetImage("img/bgpattern.png"),
+                 //   image: new AssetImage("img/bgpattern.png"),
+                    image: new AssetImage("img/bg.jpg"),
                     fit: BoxFit.cover),
                 boxShadow: [
                   new BoxShadow(color: Colors.black, blurRadius: 8.0)
