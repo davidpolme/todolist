@@ -22,12 +22,14 @@ class _MyTaskState extends State<MyTask> {
       content: Container(
         height: 250.0,
         child: Column(
+
           children: <Widget>[
             ClipOval(
               child: new Image.network(widget.user.photoUrl),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+
+              padding: const EdgeInsets.all(50.0),
               child: Text(
                 "¿Salir?",
                 style: new TextStyle(fontSize: 16.0),
@@ -99,9 +101,10 @@ class _MyTaskState extends State<MyTask> {
         ),
       ),
       body: new Stack(
+
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 160.0),
+            padding: const EdgeInsets.only(top: 130.0),
             child: StreamBuilder(
               stream: Firestore.instance
                   .collection("task")
@@ -123,7 +126,7 @@ class _MyTaskState extends State<MyTask> {
             ),
           ),
           Container(
-            height: 170.0,
+            height: 150.0,
             width: double.infinity,
             decoration: BoxDecoration(
                 image: DecorationImage(
@@ -131,10 +134,10 @@ class _MyTaskState extends State<MyTask> {
                     // TODO: poner imagen transparente
 
                  //   image: new AssetImage("img/bgpattern.png"),
-                    image: new AssetImage("img/bg.jpg"),
+                    image: new AssetImage("img/app.jpg"),
                     fit: BoxFit.cover),
                 boxShadow: [
-                  new BoxShadow(color: Colors.black, blurRadius: 8.0)
+                  new BoxShadow(color: Colors.lightBlueAccent, blurRadius: 8.0)
                 ],
                 color: Color.fromRGBO(3, 81, 57, 100.0)),
             child: new Column(
@@ -145,6 +148,7 @@ class _MyTaskState extends State<MyTask> {
                   child: Row(
                     children: <Widget>[
                       Container(
+                        alignment: AlignmentDirectional(5.0, 60.0),
                         width: 60.0,
                         height: 60.0,
                         decoration: BoxDecoration(
@@ -156,7 +160,7 @@ class _MyTaskState extends State<MyTask> {
                       ),
                       new Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 18.0),
+                          padding: const EdgeInsets.only(left: 38.0,top: 70.0),
                           child: new Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,7 +179,9 @@ class _MyTaskState extends State<MyTask> {
                           ),
                         ),
                       ),
+
                       new IconButton(
+                        alignment: AlignmentDirectional(5.0, 30.0),
                         icon: Icon(
                           Icons.exit_to_app,
                           color: Colors.white,
@@ -188,19 +194,45 @@ class _MyTaskState extends State<MyTask> {
                     ],
                   ),
                 ),
-                new Text(
-                  "Mis Tareas",
-                  style: new TextStyle(
-                      color: Colors.white,
-                      fontSize: 30.0,
-                      letterSpacing: 1.0,
-                      fontFamily: "Segoe"),
-                )
               ],
+
             ),
+
+
           ),
+          Container(
+
+            height: 65.0,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+
+                  // TODO: poner imagen transparente
+
+                  //   image: new AssetImage("img/bgpattern.png"),
+                    image: new AssetImage("img/app.jpg"),
+                    fit: BoxFit.cover),
+                boxShadow: [
+                  new BoxShadow(color: Colors.blueAccent, blurRadius: 8.0)
+                ],
+                color: Color.fromRGBO(3, 81, 57, 100.0)),
+
+          ),
+
+          new Text(
+
+            "APP",
+            style: new TextStyle(
+                color: Colors.white,
+                fontSize: 30.0,
+                letterSpacing: 1.0,
+                fontFamily: "Segoe"),
+          )
+
         ],
       ),
+
+
     );
   }
 }
